@@ -26,14 +26,8 @@ function mario() {
   let height; // DO NOT MODIFY
   ////////////// DO NOT MODIFY
 
-  height = prompt("Enter a integer between 1 and 23");
-  while(height > 23 || height < 1) {
-    height = prompt("Enter a height integer between 1 and 23");
-  }
-  if(height === 1) {
-    p= document.getElementById("mario-easy-output");
-    p.innerHTML= "#";
-  }
+
+
 
 
   ////////////////////////// DO NOT MODIFY
@@ -197,6 +191,37 @@ function hurricane() {
   ///////////////// DO NOT MODIFY
   let windspeed; // DO NOT MODIFY
   ///////////////// DO NOT MODIFY
+  windspeed = prompt("Enter a non-negative integer between 1 and infinity");
+  while(windspeed < 1) {
+      windspeed = prompt("Enter a non-negative integer between 1 and infinity");
+  }
+
+  let type = parseInt(windspeed, 10)
+  var p= document.getElementById("hurricane-output");
+
+  if(windspeed >= 157) {
+    p.innerHTML= "Category 5 Hurricane."
+  }
+  else if(windspeed >= 130 && windspeed <= 156) {
+    p.innerHTML= "Category 4 Hurricane."
+  }
+  else if(windspeed >= 111 && windspeed <= 129) {
+    p.innerHTML= "Category 3 Hurricane."
+  }
+  else if(windspeed >= 96 && windspeed <= 110) {
+    p.innerHTML= "Category 2 Hurricane."
+  }
+  else if(windspeed >= 74 && windspeed <= 95) {
+    p.innerHTML= "Category 1 Hurricane."
+  }
+  else if(windspeed >= 39 && windspeed <= 73) {
+    p.innerHTML= "Tropical Storm."
+  }
+  else if(windspeed <= 38) {
+    p.innerHTML= "The skies are calm..."
+  }
+  windspeed = type
+
 
   ///////////////////////////////// DO NOT MODIFY
   check('hurricane', windspeed); // DO NOT MODIFY
