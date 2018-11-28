@@ -371,14 +371,15 @@ function reportCard() {
    *       grades the user enters, respectively.
    */
 
-/* homework = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.")
-if(homework < 0 || homework > 100) {
-  homework = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.")
+let hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.");
+while(hGrades >= 0 && hGrades <= 100) {
+  hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.");
+  homeworkTotal= hGrades + homeworkTotal;
+  homeworks= homeworks + 1;
 }
-else if(homework = -1) {
 
-}
-*/
+console.log(homeworks, homeworkTotal);
+
   /////////////////////// DO NOT MODIFY
   check('report-card', // DO NOT MODIFY
     testTotal, ////////// DO NOT MODIFY
