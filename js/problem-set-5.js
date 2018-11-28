@@ -257,36 +257,60 @@ function gymnastics() {
    * NOTE: The 'total' variable should be representative of the sum of all
    *       six of the judges' scores.
    */
+
 let firstScore= prompt("Enter a real number first score between 0 and 10")
 while(firstScore < 0 || firstScore > 10) {
   prompt("Enter a real number score between 0 and 10")
 }
+firstScore= parseInt(firstScore, 10)
 
 let secondScore=  prompt("Enter a real number second score between 0 and 10")
 while(secondScore < 0 || secondScore > 10) {
   prompt("Enter a real number score between 0 and 10")
 }
+secondScore= parseInt(secondScore, 10)
 
 let thirdScore=  prompt("Enter a real number third score between 0 and 10")
 while(thirdScore < 0 || thirdScore > 10) {
   prompt("Enter a real number score between 0 and 10")
 }
+thirdScore= parseInt(thirdScore, 10)
 
 let fourthScore=  prompt("Enter a real number fourth score between 0 and 10")
 while(fourthScore < 0 || fourthScore > 10) {
   prompt("Enter a real number score between 0 and 10")
 }
+fourthScore= parseInt(fourthScore, 10)
 
 let fifthScore=  prompt("Enter a real number fifth score between 0 and 10")
 while(fifthScore < 0 || fifthScore > 10) {
   prompt("Enter a real number score between 0 and 10")
 }
+fifthScore= parseInt(fifthScore, 10)
 
 let sixthScore=  prompt("Enter a real number sixth score between 0 and 10")
 while(sixthScore < 0 || sixthScore > 10) {
   prompt("Enter a real number score between 0 and 10")
 }
+sixthScore= parseInt(sixthScore, 10)
 
+scores.push(firstScore)
+scores.push(secondScore)
+scores.push(thirdScore)
+scores.push(fourthScore)
+scores.push(fifthScore)
+scores.push(sixthScore)
+
+total= firstScore + secondScore + thirdScore + fourthScore + fifthScore + sixthScore
+let minScore= Math.min(firstScore, secondScore, thirdScore, fourthScore, fifthScore, sixthScore)
+let maxScore= Math.max(firstScore, secondScore, thirdScore, fourthScore, fifthScore, sixthScore)
+
+let average= (total-(minScore+maxScore)) / 4;
+average= average.toFixed(2);
+let removed= `${minScore}, ${maxScore}`;
+
+let p= document.getElementById("gymnastics-output");
+p.innerHTML= `Discarded: ${removed}<br/>Score: ${average}`;
   /*
    * NOTE: You need to add each score (valid or not) to the 'scores' variable.
    *       To do this, use the following syntax:
