@@ -27,8 +27,27 @@ function mario() {
   ////////////// DO NOT MODIFY
 
 
-
-
+  height = prompt("Enter a integer between 1 and 23");
+  while(height > 23 || height < 1) {
+    height = prompt("Enter a height integer between 1 and 23!");
+  }
+ 
+  p= document.getElementById("mario-easy-output");
+  var text= "";
+  let i;
+  let j;
+  for (i=1; i<=height; i++) {
+      for(j=0; j<height; j++) {
+        if(j>=(height-i)) {
+          text += "#";
+        }
+        else {
+          text += "&nbsp";
+        }
+      }
+      text += "#<br/>";
+  }
+ 
 
   ////////////////////////// DO NOT MODIFY
   check('mario', height); // DO NOT MODIFY
@@ -116,14 +135,61 @@ function credit() {
   let card; // DO NOT MODIFY
   //////////// DO NOT MODIFY
 
-  // WRITE YOUR EXERCISE 3 CODE HERE
-
   /*
    * NOTE: After reading in the card number and storing it in the 'card'
    *       variable, do not modify it. If you find it necessary to manipulate
    *       this value, you will need to create a second variable to serve
    *       as a copy of the 'card' variable.
    */
+  let p = document.getElementById("credit-output")
+  //integer check
+  card = parseInt(prompt("Enter a credit card number."), 10)
+
+  while (!Number.isInteger(card)) {
+    card = parseInt(prompt("Enter a credit card number."), 10)
+  }
+
+  // see if valid using luhn's algorithm
+
+  let stringCard = toString(card)
+  let length = stringCard.length
+  let i
+  let j
+  let sumMul = 0
+  let sumAdd = 0
+  let valid = false
+ 
+  for (i = length - 1; i < 1; i - 2) {
+    j = toString(card).substring(i, 1)
+    j = j * 2
+    sumMul = j + sumMul
+  }
+  for (i = length - 2; i < 1; i - 2) {
+    j = toString(card).substring(i, 1)
+    sumAdd = j + sumAdd
+  }
+  if (0 == ((sumMul + sumAdd) % 10)) {
+    valid = true
+  }
+
+  // determine card type
+  let stringStart = toString(card).substring(0, 2)
+  let stringStart1 = toString(card).substring(0, 1)
+ 
+  if (!valid) {
+    p.innerHTML = "invalid<img src=\"/images/invalid.png\" />"
+  }
+  else if (15 == length && ("34" == stringStart || "37" == stringStart)) {
+    p.innerHTML = "amex<img src=\"/images/amex.png\" />"
+  }
+  else if (16 == length && ("51" == stringStart || "52" == stringStart || "53" == stringStart || "54" == stringStart || "55" == stringStart)) {
+    p.innerHTML = "mastercard<img src=\"/images/mastercard.png\" />"
+  }
+  else if ((13 == length || 16 == length) && "4" == stringStart1) {
+    p.innerHTML = "visa<img src=\"/images/visa.png\" />"
+  }
+
+  
 
   ///////////////////////// DO NOT MODIFY
   check('credit', card); // DO NOT MODIFY
@@ -155,7 +221,31 @@ function credit() {
 
 function guess() {
 
-  // WRITE YOUR EXERCISE 4 CODE HERE
+  let max=  1000
+  let nGuess= 0
+  let rand=0
+ 
+  rand= Math.floor(Math.random() * Math.floor(max)) + 1
+  let guess = prompt("Guess a number between 1 and 1000.")
+  guess = parseInt(guess, 10)
+
+  while (rand !== guess) {
+    if (guess < rand) {
+      guess = prompt("Guess a higher number between 1 and 1000.")
+      guess = parseInt(guess, 10)
+    }
+    else if (guess > rand) {
+      guess = prompt("Guess a lower number between 1 and 1000.")
+      guess = parseInt(guess, 10)
+    }
+
+    if(guess > 0 && guess < 1000) {
+      nGuess += 1
+    }
+  }
+
+  let p= document.getElementById("guess-output")
+  p.innerHTML= `Random Number: ${rand} <br/> Attempts: ${nGuess}`
 
   ////////////////// DO NOT MODIFY
   check('guess'); // DO NOT MODIFY
@@ -371,14 +461,14 @@ function reportCard() {
    *       grades the user enters, respectively.
    */
 
-let hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.");
+let hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.")
 while(hGrades >= 0 && hGrades <= 100) {
-  hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.");
-  homeworkTotal= hGrades + homeworkTotal;
-  homeworks= homeworks + 1;
+  hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.")
+  homeworkTotal= hGrades + homeworkTotal
+  homeworks= homeworks + 1
 }
 
-console.log(homeworks, homeworkTotal);
+
 
   /////////////////////// DO NOT MODIFY
   check('report-card', // DO NOT MODIFY
