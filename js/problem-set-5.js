@@ -26,29 +26,33 @@ function mario() {
   let height; // DO NOT MODIFY
   ////////////// DO NOT MODIFY
 
-
   height = prompt("Enter a integer between 1 and 23");
-  while(height > 23 || height < 1) {
+  height= parseInt(height, 10)
+  
+  while((height > 23 || height < 1 ) || ! Number.isInteger(height)) {
+    height= parseInt(height, 10)
     height = prompt("Enter a height integer between 1 and 23!");
   }
- 
-  p= document.getElementById("mario-easy-output");
-  var text= "";
-  let i;
-  let j;
-  for (i=1; i<=height; i++) {
-      for(j=0; j<height; j++) {
-        if(j>=(height-i)) {
-          text += "#";
-        }
-        else {
-          text += "&nbsp";
-        }
-      }
-      text += "#<br/>";
-  }
- 
 
+  let i=1;
+  let j=0
+  let hash='#';
+  let lines="<code>";
+  let spaces=height-2;
+
+  while (i<=height){
+    let a='';
+    for(j=0;j<=spaces;j++) {
+      a+='&nbsp;';
+    }
+    spaces--;
+    hash=hash+'#';
+    lines=lines+a+hash+"</br>";
+    i++;
+  }
+
+  document.getElementById("mario-easy-output").innerHTML=lines;
+  lines=lines+"</code>"
   ////////////////////////// DO NOT MODIFY
   check('mario', height); // DO NOT MODIFY
   ////////////////////////// DO NOT MODIFY
@@ -82,8 +86,30 @@ function marioAgain() {
   let height; // DO NOT MODIFY
   ////////////// DO NOT MODIFY
 
-  // WRITE YOUR EXERCISE 2 CODE HERE
+  height = prompt("Enter a integer between 1 and 23");
+  height= parseInt(height, 10)
+  while((height > 23 || height < 1 ) || ! Number.isInteger(height)) {
+    height= parseInt(height, 10)
+    height = prompt("Enter a height integer between 1 and 23!");
+  }
 
+  let i=1;
+  let hash='#';
+  let lines="<code>";
+  let spaces_Before=height-2;
+  let spaces_After='&nbsp'+'&nbsp';
+  while (i<=height){
+    let a='';
+    for(let j=0;j<=spaces_Before;j++) {
+      a+='&nbsp;';
+    }
+    spaces_Before--;
+    hash=hash+'#';
+    lines=lines+a+hash+spaces_After+hash+"</br>";
+    i++;
+  }
+  document.getElementById("mario-hard-output").innerHTML=lines;
+  lines=lines+"</code>"
   //////////////////////////////// DO NOT MODIFY
   check('mario-again', height); // DO NOT MODIFY
   //////////////////////////////// DO NOT MODIFY
@@ -142,54 +168,64 @@ function credit() {
    *       as a copy of the 'card' variable.
    */
   let p = document.getElementById("credit-output")
+  
   //integer check
-  card = parseInt(prompt("Enter a credit card number."), 10)
-
-  while (!Number.isInteger(card)) {
+  do {
     card = parseInt(prompt("Enter a credit card number."), 10)
-  }
+  } while (!Number.isInteger(card))
 
   // see if valid using luhn's algorithm
 
-  let stringCard = toString(card)
+  let stringCard = card.toString()
   let length = stringCard.length
   let i
   let j
-  let sumMul = 0
-  let sumAdd = 0
+  let k
+  let sumMul= 0
+  let sumAdd= 0
   let valid = false
- 
-  for (i = length - 1; i < 1; i - 2) {
-    j = toString(card).substring(i, 1)
-    j = j * 2
-    sumMul = j + sumMul
+
+  max = length - 1 
+  for (i = max; i > 0; i = i-2) {
+    j = stringCard.charAt(i-1)
+    j = parseInt(j, 10)
+    k = j * 2
+    sumMul += (k % 10) + Math.floor(k / 10)
   }
-  for (i = length - 2; i < 1; i - 2) {
-    j = toString(card).substring(i, 1)
-    sumAdd = j + sumAdd
+
+  max = length - 2
+  for (i = max; i > 0; i = i-2) {
+    j = stringCard.charAt(i-1)
+    j = parseInt(j, 10)
+    sumAdd += j
   }
-  if (0 == ((sumMul + sumAdd) % 10)) {
+
+  let x = stringCard.charAt(length-1)
+  x= parseInt(x, 10)
+  if (0 == ((sumMul + sumAdd + x) % 10)) {
     valid = true
   }
 
-  // determine card type
-  let stringStart = toString(card).substring(0, 2)
-  let stringStart1 = toString(card).substring(0, 1)
- 
-  if (!valid) {
-    p.innerHTML = "invalid<img src=\"/images/invalid.png\" />"
+  // determine card type/picture
+  
+  let stringStart = stringCard.substring(0, 2)
+  let stringStart1 = stringCard.substring(0, 1)
+
+  if(! valid) {
+    p.innerHTML = "Invalid."
   }
   else if (15 == length && ("34" == stringStart || "37" == stringStart)) {
-    p.innerHTML = "amex<img src=\"/images/amex.png\" />"
+    p.innerHTML = "<img src='./images/amex.png' />"
   }
   else if (16 == length && ("51" == stringStart || "52" == stringStart || "53" == stringStart || "54" == stringStart || "55" == stringStart)) {
-    p.innerHTML = "mastercard<img src=\"/images/mastercard.png\" />"
+    p.innerHTML = "<img src='./images/mastercard.png' />"
   }
   else if ((13 == length || 16 == length) && "4" == stringStart1) {
-    p.innerHTML = "visa<img src=\"/images/visa.png\" />"
+    p.innerHTML = "<img src='./images/visa.png' />"
   }
-
-  
+  else {
+    p.innerHTML = "Invalid."
+  }
 
   ///////////////////////// DO NOT MODIFY
   check('credit', card); // DO NOT MODIFY
@@ -231,11 +267,11 @@ function guess() {
 
   while (rand !== guess) {
     if (guess < rand) {
-      guess = prompt("Guess a higher number between 1 and 1000.")
+      guess = prompt("Guess a HIGHER number between 1 and 1000.")
       guess = parseInt(guess, 10)
     }
     else if (guess > rand) {
-      guess = prompt("Guess a lower number between 1 and 1000.")
+      guess = prompt("Guess a LOWER number between 1 and 1000.")
       guess = parseInt(guess, 10)
     }
 
@@ -395,12 +431,12 @@ total= firstScore + secondScore + thirdScore + fourthScore + fifthScore + sixthS
 let minScore= Math.min(firstScore, secondScore, thirdScore, fourthScore, fifthScore, sixthScore)
 let maxScore= Math.max(firstScore, secondScore, thirdScore, fourthScore, fifthScore, sixthScore)
 
-let average= (total-(minScore+maxScore)) / 4;
-average= average.toFixed(2);
-let removed= `${minScore}, ${maxScore}`;
+let average= (total-(minScore+maxScore)) / 4
+average= average.toFixed(2)
+let removed= `${minScore}, ${maxScore}`
 
-let p= document.getElementById("gymnastics-output");
-p.innerHTML= `Discarded: ${removed}<br/>Score: ${average}`;
+let p= document.getElementById("gymnastics-output")
+p.innerHTML= `Discarded: ${removed}<br/>Score: ${average}`
   /*
    * NOTE: You need to add each score (valid or not) to the 'scores' variable.
    *       To do this, use the following syntax:
