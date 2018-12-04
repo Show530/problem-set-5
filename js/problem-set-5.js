@@ -497,14 +497,47 @@ function reportCard() {
    *       grades the user enters, respectively.
    */
 
-let hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.")
-while(hGrades >= 0 && hGrades <= 100) {
+let hGrades
+let qGrades
+let tGrades
+
+do {
   hGrades = prompt("Enter homework grades. When finished entering, use a -1 grade to signify such.")
-  homeworkTotal= hGrades + homeworkTotal
-  homeworks= homeworks + 1
-}
+  if (hGrades >= 0 && hGrades <= 100){
+    homeworkTotal= hGrades + homeworkTotal
+    homeworks= homeworks + 1
+  }
+} while(hGrades!= -1)
 
+do {
+  qGrades = prompt("Enter quiz grades. When finished entering, use a -1 grade to signify such.")
+  if (qGrades >= 0 && qGrades <= 100) {
+    quizTotal= qGrades + quizTotal
+    quizzes= quizzes + 1
+  }
+} while(qGrades!= -1)
 
+do {
+  tGrades = prompt("Enter test grades. When finished entering, use a -1 grade to signify such.")
+  if(tGrades >= 0 && tGrades <= 100) {
+    testTotal= tGrades + testTotal
+    tests= tests + 1
+  }
+} while(tGrades!= -1)
+
+let homeAve= homeworkTotal/homeworks
+let quizAve= quizTotal/quizzes
+let testAve= testTotal/tests
+
+let averageGrade= (homeAve * 0.1) + (quizAve * 0.3) + (testAve * 0.6)
+averageGrade = Math.ceil(averageGrade * 100) / 100
+
+homeworkTotal = homeworkTotal.toFixed(2)
+quizTotal = Math.ceil(quizTotal * 100) / 100
+testTotal = Math.ceil(testTotal * 100) / 100
+
+let p= document.getElementById("report-card-output")
+p.innerHTML= `Tests: ${testAve}</br> Quizzes: ${quizAve}</br> Homework: ${homeworkAve}</br> Grade: ${averageGrade}`
 
   /////////////////////// DO NOT MODIFY
   check('report-card', // DO NOT MODIFY
