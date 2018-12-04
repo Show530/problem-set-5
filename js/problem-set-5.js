@@ -525,16 +525,11 @@ do {
   }
 } while(tGrades!= -1)
 
-let homeAve= homeworkTotal/homeworks
-let quizAve= quizTotal/quizzes
-let testAve= testTotal/tests
+let homeAve= (homeworkTotal/homeworks).toFixed(2)
+let quizAve= (quizTotal/quizzes).toFixed(2)
+let testAve= (testTotal/tests).toFixed(2)
 
-let averageGrade= (homeAve * 0.1) + (quizAve * 0.3) + (testAve * 0.6)
-averageGrade = Math.ceil(averageGrade * 100) / 100
-
-homeworkTotal = homeworkTotal.toFixed(2)
-quizTotal = Math.ceil(quizTotal * 100) / 100
-testTotal = Math.ceil(testTotal * 100) / 100
+let averageGrade= ((homeAve * 0.1) + (quizAve * 0.3) + (testAve * 0.6)).toFixed(2)
 
 let p= document.getElementById("report-card-output")
 p.innerHTML= `Tests: ${testAve}</br> Quizzes: ${quizAve}</br> Homework: ${homeworkAve}</br> Grade: ${averageGrade}`
